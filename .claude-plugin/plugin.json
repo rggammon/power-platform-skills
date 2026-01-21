@@ -1,0 +1,24 @@
+{
+  "name": "power-pages",
+  "version": "1.0.0",
+  "description": "Create and deploy Power Pages sites using modern development approaches. Supports code sites (SPAs) with React, Angular, Vue, or Astro, with more site types coming soon.",
+  "author": {
+    "name": "Microsoft",
+    "url": "https://www.microsoft.com"
+  },
+  "homepage": "https://learn.microsoft.com/power-pages/configure/create-code-sites",
+  "repository": "https://github.com/microsoft/power-pages-claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "power-pages",
+    "site-builder",
+    "code-sites",
+    "spa",
+    "react",
+    "angular",
+    "vue",
+    "astro",
+    "pac-cli",
+    "dataverse"
+  ]
+}

@@ -4,6 +4,7 @@ evals/temp/
 
 # Eval reports (aggregated results)
 evals/reports/
+evals/**/*-workspace/
 
 # Python
 __pycache__/
@@ -44,3 +45,5 @@ ENV/
 # OS
 .DS_Store
 Thumbs.db
+
+.playwright-mcp/

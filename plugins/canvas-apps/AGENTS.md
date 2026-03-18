@@ -46,7 +46,6 @@ The `canvas-authoring` MCP server exposes the following tools:
 | `ListControls` | Lists all available Canvas App controls and their properties |
 | `DescribeControl` | Returns detailed property schema for a specific control |
 | `CompileCanvas` | Compiles `.pa.yaml` source files into a `.msapp` package |
-...
 
 ## Prerequisites
 

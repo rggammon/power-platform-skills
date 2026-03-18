@@ -32,6 +32,20 @@
                 "genux",
                 "microsoft"
             ]
+        },
+        {
+            "name": "canvas-apps",
+            "source": "./plugins/canvas-apps",
+            "description": "Build Power Apps Canvas Apps using the Canvas Authoring MCP server",
+            "category": "development",
+            "tags": [
+                "power platform",
+                "power apps",
+                "canvas apps",
+                "pa-yaml",
+                "msapp",
+                "microsoft"
+            ]
         }
     ]
 }

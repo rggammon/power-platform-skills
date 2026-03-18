@@ -55,7 +55,7 @@ Based on the scope, set the `CONFIG_PATH` variable:
 - **Global**: `~/.copilot/mcp-config.json` (use the user's home directory)
 - **Project**: `.mcp/copilot/mcp.json` (relative to the current working directory)
 
-Store this path for use in steps 5 and 6.
+Store this path for use in steps 4 and 5.
 
 **If TOOL_TYPE is `claude`:**
 
@@ -69,34 +69,29 @@ Based on the scope, set the `CLAUDE_SCOPE` variable:
 - **Project**: `CLAUDE_SCOPE` = `project`
 - **Local**: `CLAUDE_SCOPE` = `local`
 
-Store this value for use in step 6.
+Store this value for use in step 5.
 
-### 3. Ask for the environment ID
+### 3. Ask for the studio URL
 
-Ask the user for their Power Platform environment ID:
+Ask the user:
 
-> What is your Power Platform environment ID?
+> What is the URL of your canvas app studio session?
 >
-> This is the value for `CANVAS_ENVIRONMENT_NAME`. It looks like `Default-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` or `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`.
+> Copy the URL from the browser address bar while your app is open in Power Apps Designer (it should look like `https://make.powerapps.com/e/Default-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/canvas/?action=edit&app-id=...`).
 >
-> You can find it in the [Power Platform admin center](https://admin.powerplatform.microsoft.com) — open your environment and copy the **Environment ID** from the details panel.
+> Make sure coauthoring is enabled in the app (Settings → Updates → Coauthoring).
 
-Store this as `ENV_ID` for use in step 5.
+Then extract from the URL:
+- **ENV_ID**: the path segment between `/e/` and the next `/` (e.g. `Default-91bee3d9-0c15-4f17-8624-c92bb8b36ead`).
+- **APP_ID**: URL-decode the `app-id` query parameter value, then take the last segment after the final `/` (e.g. `6fc3e3d1-292b-4281-8826-577f78512e56`)
 
-### 4. Ask for the app ID
+Example URL: `https://make.test.powerapps.com/e/Default-91bee3d9-0c15-4f17-8624-c92bb8b36ead/canvas/?action=edit&app-id=%2Fproviders%2FMicrosoft.PowerApps%2Fapps%2F6fc3e3d1-292b-4281-8826-577f78512e56`
+- ENV_ID → `Default-91bee3d9-0c15-4f17-8624-c92bb8b36ead`
+- APP_ID → `6fc3e3d1-292b-4281-8826-577f78512e56`
 
-Ask the user for the ID of the app they want to connect to:
+Store these as `ENV_ID` and `APP_ID` for use in step 4.
 
-> What is the id of the app you're editing? 
-> Make sure this is a canvas app, that it's open in PowerApps Designer, and that it has Coauthoring enabled.
->
-> This is the value for `CANVAS_APP_ID`. It looks like `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`.
->
-> You can find it in the studio session, under Settings -> Support -> Session Details -> App Id
-
-Store this as `APP_ID` for use in step 5.
-
-### 5. Register the MCP server
+### 4. Register the MCP server
 
 
 **If TOOL_TYPE is `claude`:**
@@ -158,7 +153,7 @@ claude mcp add --scope {CLAUDE_SCOPE} canvas-authoring -e CANVAS_ENVIRONMENT_ID=
 - Do NOT overwrite other entries in the configuration file
 - Preserve the existing structure and formatting
 
-### 6. Confirm and provide next steps
+### 5. Confirm and provide next steps
 
 Tell the user:
 

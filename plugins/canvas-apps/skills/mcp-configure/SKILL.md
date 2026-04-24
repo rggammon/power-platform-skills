@@ -31,11 +31,13 @@ Then wait for the user to install it before continuing. If they say it's install
 ### 1. Determine which tool to configure
 
 Determine whether needs to configure MCP for GitHub Copilot or for Claude Code:
+
 - If explicitly mentioned in prompt, use that.
 - Otherwise, determine which tool the user is running from the context.
 - Only if choosing based on the context is impossible, ask the user:
 
 > Which tool would you like to configure the Dataverse MCP server for?
+>
 > 1. **GitHub Copilot**
 > 2. **Claude**
 
@@ -48,10 +50,12 @@ Choose the configuration scope based on the tool. Use the scope explicitly menti
 **If TOOL_TYPE is `copilot`:**
 
 The options are:
+
 1. **Globally** (default, available in all projects)
 2. **Project-only** (available only in this project)
 
 Based on the scope, set the `CONFIG_PATH` variable:
+
 - **Global**: `~/.copilot/mcp-config.json` (use the user's home directory)
 - **Project**: `.mcp/copilot/mcp.json` (relative to the current working directory)
 
@@ -60,11 +64,13 @@ Store this path for use in steps 4 and 5.
 **If TOOL_TYPE is `claude`:**
 
 The options are:
+
 1. **User** (available in all projects for this user)
 2. **Project** (default, available only in this project)
 3. **Local** (scoped to current project directory)
 
 Based on the scope, set the `CLAUDE_SCOPE` variable:
+
 - **User**: `CLAUDE_SCOPE` = `user`
 - **Project**: `CLAUDE_SCOPE` = `project`
 - **Local**: `CLAUDE_SCOPE` = `local`
@@ -82,6 +88,7 @@ Ask the user:
 > Make sure coauthoring is enabled in the app (Settings → Updates → Coauthoring).
 
 Then extract from the URL:
+
 - **ENV_ID**: the path segment between `/e/` and the next `/` (e.g. `Default-91bee3d9-0c15-4f17-8624-c92bb8b36ead`).
 - **APP_ID**: URL-decode the `app-id` query parameter value, then take the last segment after the final `/` (e.g. `6fc3e3d1-292b-4281-8826-577f78512e56`)
 - **MAKER_HOSTNAME**: the hostname of the URL (e.g. `make.powerapps.com`)
@@ -93,6 +100,10 @@ Then extract from the URL:
 | ---------------------------- | ---------------- |
 | `make.powerapps.com`         | `prod`           |
 | `make.preview.powerapps.com` | `prod`           |
+| `make.gov.powerapps.us`      | `gov`            |
+| `make.high.powerapps.us`     | `high`           |
+| `make.apps.appsplatform.us`  | `dod`            |
+| `make.powerapps.cn`          | `china`          |
 | Any other hostname           | `test`           |
 
 **Example:**
@@ -131,12 +142,15 @@ claude mcp add --scope {CLAUDE_SCOPE} canvas-authoring \
 ```
 
 **If TOOL_TYPE is `copilot`:**
+
 1. If `CONFIG_PATH` is for a **project-scoped** configuration (`.mcp/copilot/mcp.json`), ensure the directory exists first:
+
    ```bash
    mkdir -p .mcp/copilot
    ```
 
 2. Read the existing configuration file at `CONFIG_PATH`, or create a new empty config if it doesn't exist:
+
    ```json
    {}
    ```
@@ -146,6 +160,7 @@ claude mcp add --scope {CLAUDE_SCOPE} canvas-authoring \
    - Otherwise, use `"mcpServers"`
 
 4. Add or update the server entry:
+
    ```json
    {
      "mcpServers": {
@@ -172,6 +187,7 @@ claude mcp add --scope {CLAUDE_SCOPE} canvas-authoring \
 5. Write the updated configuration back to `CONFIG_PATH` with proper JSON formatting (2-space indentation).
 
 **Important notes:**
+
 - Do NOT overwrite other entries in the configuration file
 - Preserve the existing structure and formatting
 
@@ -184,5 +200,6 @@ Tell the user:
 > **Restart Claude Code to activate it.** Remember to use `claude --continue` to resume this session without losing context.
 >
 > After restarting, verify the setup:
+>
 > - `canvas-authoring` should appear in the MCP server list
 > - Ask Claude: "List available Canvas App controls" — should invoke `list_controls`
